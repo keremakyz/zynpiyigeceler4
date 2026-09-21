@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İyi Geceler Ömrüm ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #2d122d 0%, #0f0814 100%);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #fff;
+            transition: background 1.2s ease;
+            overflow: hidden;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 45px 30px;
+            width: 88%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            font-size: 75px;
+            cursor: pointer;
+            outline: none;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            user-select: none;
+            filter: drop-shadow(0 0 20px rgba(244, 114, 182, 0.4));
+        }
+
+        .toggle-btn:active {
+            transform: scale(0.85);
+        }
+
+        .hint {
+            font-size: 0.85rem;
+            color: #f472b6;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+            font-weight: 300;
+        }
+
+        .message-box {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease;
+            pointer-events: none;
+        }
+
+        .message-box.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.2rem;
+            background: linear-gradient(45deg, #fbcfe8, #f43f5e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 0.98rem;
+            line-height: 1.8;
+            color: #f1f5f9;
+            font-weight: 300;
+        }
+
+        .decor {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #fb7185;
+            letter-spacing: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Arka Plan Müzik Etiketi -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="hanimefendi.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="card">
+        <button class="toggle-btn" id="heartBtn" onclick="toggleMessage()">💖</button>
+        <div class="hint" id="hintText">Kalbimin anahtarını çevirmek için dokun...</div>
+
+        <div class="message-box" id="messageBox">
+            <h1>Kalbim Sende Kaldı...</h1>
+            <p>Gece ne kadar karanlık olursa olsun, içimdeki sen ışıl ışıl yanmaya devam ediyor. Bütün dünya uykuya dalarken benim tek dileğim, rüyalarında bile kalbinin benimkiyle birlikte atması. Gözlerini kapattığında sarıldığımı hisset, çünkü ruhum her gece tam orada, yanı başında. İyi ki varsın, iyi uykular sevgilim...</p>
+            <div class="decor">🌹 ✨ 🌹</div>
+        </div>
+    </div>
+
+    <script>
+        let isActivated = false;
+        
+        // 1 dakika 20 saniye = 80 saniye
+        const START_TIME_IN_SECONDS = 80; 
+
+        function toggleMessage() {
+            const heartBtn = document.getElementById('heartBtn');
+            const hintText = document.getElementById('hintText');
+            const messageBox = document.getElementById('messageBox');
+            const music = document.getElementById('bgMusic');
+
+            if (!isActivated) {
+                document.body.style.background = 'linear-gradient(135deg, #180519 0%, #050108 100%)';
+                heartBtn.textContent = '💞';
+                heartBtn.style.filter = 'drop-shadow(0 0 25px rgba(244, 63, 94, 0.7))';
+                hintText.textContent = 'Seni her şeyden çok seviyorum...';
+                hintText.style.color = '#fb7185';
+                messageBox.classList.add('active');
+
+                // Şarkının başlama süresini 80. saniyeye ayarla ve oynat
+                music.currentTime = START_TIME_IN_SECONDS;
+                music.play().catch(err => {
+                    console.log("Tarayıcı müzik oynatmayı engelledi:", err);
+                });
+
+                isActivated = true;
+            } else {
+                document.body.style.background = 'linear-gradient(135deg, #2d122d 0%, #0f0814 100%)';
+                heartBtn.textContent = '💖';
+                heartBtn.style.filter = 'drop-shadow(0 0 20px rgba(244, 114, 182, 0.4))';
+                hintText.textContent = 'Kalbimin anahtarını çevirmek için dokun...';
+                hintText.style.color = '#f472b6';
+                messageBox.classList.remove('active');
+
+                // Müziği durdur ve süreyi sıfırla
+                music.pause();
+                music.currentTime = 0;
+
+                isActivated = false;
+            }
+        }
+    </script>
+
+</body>
+</html>
